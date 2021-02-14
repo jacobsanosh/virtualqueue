@@ -1,4 +1,4 @@
-package org.gptcchethala.virtual_queue;
+package org.gptccherthala.virtualqueue;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("org.gptcchethala.virtual_queue", appContext.getPackageName());
+        assertEquals("org.gptccherthala.virtualqueue", appContext.getPackageName());
     }
 }

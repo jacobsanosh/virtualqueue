@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">virtual_queue</string>
-    <string name="loginbtn">LOGIN</string>
-    <string name="cuser">REGISTER</string>
-    <string name="guest">GUEST</string>
+    <string name="app_name">Virtual Queue</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="register_button">Create new user</string>
+    <string name="guest_login_button">Login as Guest</string>
+    <string name="password_2_hint">Re-Enter Password</string>
+    <string name="user_text">User</string>
+    <string name="business_text">Business</string>
+    <string name="continue_button">Continue</string>
 </resources>

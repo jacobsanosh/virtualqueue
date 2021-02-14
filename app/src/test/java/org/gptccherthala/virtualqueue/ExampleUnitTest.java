@@ -1,4 +1,4 @@
-package org.gptcchethala.virtual_queue;
+package org.gptccherthala.virtualqueue;
 
 import org.junit.Test;
 
