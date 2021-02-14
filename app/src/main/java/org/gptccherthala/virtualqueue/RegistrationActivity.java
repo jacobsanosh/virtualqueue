@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -22,6 +23,9 @@ public class RegistrationActivity extends AppCompatActivity {
     Button continueButton;
     RadioGroup typeOfUserRadioGroup;
     RadioButton selectedRadioButton;
+    EditText etEmailId;
+    EditText etPassword;
+    EditText etCPassword;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -29,6 +33,9 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         firebaseAuth = FirebaseAuth.getInstance();
+        etEmailId = findViewById(R.id.userEmailId);
+        etPassword = findViewById(R.id.password);
+        etCPassword = findViewById(R.id.password2);
 
         continueButton = findViewById(R.id.continueButton);
         typeOfUserRadioGroup = findViewById(R.id.typeOfUserRadioGroup);
@@ -36,6 +43,27 @@ public class RegistrationActivity extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    String EmailId = etEmailId.getText().toString().trim();
+                    String Password = etPassword.getText().toString().trim();
+                    String CPassword = etCPassword.getText().toString().trim();
+
+                    if(EmailId.length()==0)
+                    {
+                        etEmailId.setError("Email Id requires");
+                    }
+
+                    if(CPassword == Password)
+                    {
+                        etCPassword.setError("password must be matched");
+                    }
+
+                }
+                catch(Exception e)
+                {
+                    Toast.makeText(RegistrationActivity.this, "something is missing...", Toast.LENGTH_LONG).show();
+                }
+
                 firebaseAuth.createUserWithEmailAndPassword("deepu@gmail.com","123456")
                         .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
