@@ -9,4 +9,9 @@
     <string name="user_text">User</string>
     <string name="business_text">Business</string>
     <string name="continue_button">Continue</string>
+    <array name="category">
+        <item>Shop</item>
+        <item>Hotel</item>
+        <item>Office</item>
+    </array>
 </resources>
