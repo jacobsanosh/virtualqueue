@@ -25,7 +25,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
     Button btRegister;
     String userId;
     private DatabaseReference mDataBase;
-    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
