@@ -7,20 +7,20 @@
     tools:context=".RegistrationActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userEmailId"
+        android:id="@+id/usernameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Email Id"
+        android:hint="Email"
         app:layout_constraintBottom_toTopOf="@+id/passwordInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed">
+        app:layout_constraintVertical_chainStyle="packed" >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/useremail"
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toTopOf="@+id/passwordInput2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userEmailId">
+        app:layout_constraintTop_toBottomOf="@id/usernameInput">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
@@ -107,8 +107,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeOfUserRadioGroup">
-
-    </com.google.android.material.button.MaterialButton>
+        app:layout_constraintTop_toBottomOf="@+id/typeOfUserRadioGroup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
