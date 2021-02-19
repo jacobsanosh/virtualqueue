@@ -6,18 +6,18 @@
 
     >
     <item
-        android:id="@+id/page_1"
+        android:id="@+id/Home"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
-        android:title="HOmE"/>
+        android:icon="@drawable/home"
+        android:title="Home"/>
     <item
-        android:id="@+id/page_2"
+        android:id="@+id/Qr"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/qrcode"
         android:title="Qr Code"/>
     <item
-        android:id="@+id/page_3"
+        android:id="@+id/Profile"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/person"
         android:title="Profile"/>
 </menu>

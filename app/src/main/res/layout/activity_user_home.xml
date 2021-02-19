@@ -22,58 +22,58 @@
 
 
     <Button
-        android:id="@+id/btn1"
+        android:id="@+id/BtnHotel"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="160dp"
         android:layout_height="200dp"
-        android:text="Outlined button"
-        app:layout_constraintBottom_toTopOf="@+id/btn3"
-        app:layout_constraintEnd_toStartOf="@+id/btn2"
+        android:text="Hotel"
+        app:layout_constraintBottom_toTopOf="@+id/BtnShop"
+        app:layout_constraintEnd_toStartOf="@+id/BtnOffice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <Button
-        android:id="@+id/btn2"
+        android:id="@+id/BtnOffice"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="160dp"
         android:layout_height="200dp"
-        android:text="Outlined button"
-        app:layout_constraintBottom_toTopOf="@+id/btn4"
+        android:text="Office"
+        app:layout_constraintBottom_toTopOf="@+id/BtnBank"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn1"
+        app:layout_constraintStart_toEndOf="@id/BtnHotel"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <Button
-        android:id="@+id/btn3"
+        android:id="@+id/BtnShop"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="160dp"
         android:layout_height="200dp"
-        android:text="Outlined button"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintEnd_toStartOf="@+id/btn4"
+        android:text="Shop"
+        app:layout_constraintBottom_toTopOf="@id/BottomNav"
+        app:layout_constraintEnd_toStartOf="@+id/BtnBank"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn1" />
+        app:layout_constraintTop_toBottomOf="@id/BtnHotel" />
 
     <Button
-        android:id="@+id/btn4"
+        android:id="@+id/BtnBank"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="160dp"
         android:layout_height="200dp"
-        android:text="Outlined button"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        android:text="Bank"
+        app:layout_constraintBottom_toTopOf="@id/BottomNav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn3"
-        app:layout_constraintTop_toBottomOf="@+id/btn2" />
+        app:layout_constraintStart_toEndOf="@id/BtnShop"
+        app:layout_constraintTop_toBottomOf="@+id/BtnOffice" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+        android:id="@+id/BottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@layout/button_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn3" />
+        app:layout_constraintTop_toBottomOf="@+id/BtnShop" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
