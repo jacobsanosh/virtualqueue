@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".UserHomeActivity">
 
 
@@ -21,45 +22,55 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/BtnHotel"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="160dp"
         android:layout_height="200dp"
-        android:text="Hotel"
+        android:background="@layout/border"
+        android:scaleType="fitCenter"
+        android:src="@drawable/hotel"
         app:layout_constraintBottom_toTopOf="@+id/BtnShop"
         app:layout_constraintEnd_toStartOf="@+id/BtnOffice"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        android:padding="10dp"
+        />
 
-    <Button
+    <ImageButton
         android:id="@+id/BtnOffice"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="160dp"
         android:layout_height="200dp"
-        android:text="Office"
+        android:scaleType="fitCenter"
+        android:src="@drawable/office"
         app:layout_constraintBottom_toTopOf="@+id/BtnBank"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/BtnHotel"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
 
-    <Button
+        />
+
+    <ImageButton
         android:id="@+id/BtnShop"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="160dp"
         android:layout_height="200dp"
-        android:text="Shop"
+        android:scaleType="fitCenter"
+        android:src="@drawable/shop"
         app:layout_constraintBottom_toTopOf="@id/BottomNav"
         app:layout_constraintEnd_toStartOf="@+id/BtnBank"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/BtnHotel" />
 
-    <Button
+    <ImageButton
         android:id="@+id/BtnBank"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="160dp"
         android:layout_height="200dp"
-        android:text="Bank"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bank"
+
         app:layout_constraintBottom_toTopOf="@id/BottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/BtnShop"
@@ -69,11 +80,12 @@
         android:id="@+id/BottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@layout/button_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BtnShop" />
+        app:layout_constraintTop_toBottomOf="@+id/BtnShop"
+        app:menu="@layout/button_navigation_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

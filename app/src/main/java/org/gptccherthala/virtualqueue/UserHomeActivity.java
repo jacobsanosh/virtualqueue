@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,7 +17,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class UserHomeActivity extends AppCompatActivity {
     //creating objects for each btn
-    Button BtnHotel, BtnOffice, BtnShop, BtnBank;
+
+    ImageButton BtnHotel, BtnOffice, BtnShop, BtnBank;
+
     BottomNavigationView BottomNav;
     String test = "";
     //BottomNavigator code
