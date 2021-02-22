@@ -1,9 +1,6 @@
 package org.gptccherthala.virtualqueue;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,14 +8,44 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class UserHomeActivity extends AppCompatActivity {
     //creating objects for each btn
+
     ImageButton BtnHotel,BtnOffice,BtnShop,BtnBank;
+
     BottomNavigationView BottomNav;
     String test = "";
+    //BottomNavigator code
+    private final BottomNavigationView.OnNavigationItemSelectedListener nav = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.Home:
+                    Toast.makeText(UserHomeActivity.this, "home....", Toast.LENGTH_LONG).show();
+                    return true;
+                case R.id.Profile:
+                    FirebaseAuth.getInstance().signOut();
+                    Intent LoginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(LoginActivity);
+                    finish();
+
+                    return true;
+                case R.id.Qr:
+                    Toast.makeText(UserHomeActivity.this, "qr is clicked.....", Toast.LENGTH_LONG).show();
+                    return true;
+
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +65,25 @@ public class UserHomeActivity extends AppCompatActivity {
 
         // checking whether BtnHotel is clicked
 
-       BtnHotel.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Toast.makeText(UserHomeActivity.this, "hotel is clicked.....", Toast.LENGTH_LONG).show();
-           }
-       });
+        BtnHotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent businessDataListActivity = new Intent(getApplicationContext(), BusinessDataListActivity.class);
+                businessDataListActivity.putExtra("category", "Hotel");
+                startActivity(businessDataListActivity);
+            }
+        });
 
-       // checking whether BtnOffice is clicked
+        // checking whether BtnOffice is clicked
 
         BtnOffice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserHomeActivity.this, "office is clicked.....", Toast.LENGTH_LONG).show();
+                Intent businessDataListActivity = new Intent(getApplicationContext(), BusinessDataListActivity.class);
+                businessDataListActivity.putExtra("category", "Office");
+                startActivity(businessDataListActivity);
             }
         });
-
 
 
         // checking whether BtnShop is clicked
@@ -61,7 +91,9 @@ public class UserHomeActivity extends AppCompatActivity {
         BtnShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserHomeActivity.this, "shop is clicked.....", Toast.LENGTH_LONG).show();
+                Intent businessDataListActivity = new Intent(getApplicationContext(), BusinessDataListActivity.class);
+                businessDataListActivity.putExtra("category", "Shop");
+                startActivity(businessDataListActivity);
             }
         });
 
@@ -70,35 +102,10 @@ public class UserHomeActivity extends AppCompatActivity {
         BtnBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserHomeActivity.this, "Bank is clicked.....", Toast.LENGTH_LONG).show();
+                Intent businessDataListActivity = new Intent(getApplicationContext(), BusinessDataListActivity.class);
+                businessDataListActivity.putExtra("category", "Bank");
+                startActivity(businessDataListActivity);
             }
         });
-        //BottomNavigator code
-
-
-
-
-
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener nav = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
-            switch (item.getItemId()) {
-                case R.id.Home:
-                    Toast.makeText(UserHomeActivity.this, "home....", Toast.LENGTH_LONG).show();
-                    return true;
-                case R.id.Profile:
-                    Toast.makeText(UserHomeActivity.this, "profile is clicked.....", Toast.LENGTH_LONG).show();
-                    return true;
-                case R.id.Qr:
-                    Toast.makeText(UserHomeActivity.this, "qr is clicked.....", Toast.LENGTH_LONG).show();
-                    return true;
-
-            }
-            return false;
-        }
-
-
-    };
 }
