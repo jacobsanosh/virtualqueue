@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.gptccherthala.virtualqueue">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -14,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VirtualQueue">
-        <activity android:name=".BusinessDataListActivity"></activity>
+        <activity android:name=".BusinessHome"></activity>
+        <activity android:name=".BusinessDataListActivity" />
         <activity android:name=".UserHomeActivity" />
         <activity android:name=".BusinessRegistrationActivity" />
         <activity android:name=".UserRegistrationActivity" />

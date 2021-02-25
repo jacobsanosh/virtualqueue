@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <item
+        android:id="@+id/Details"
+        android:enabled="true"
+        android:icon="@drawable/analytics"
+        android:title="Details"/>
+    <item
+        android:id="@+id/QrReader"
+        android:enabled="true"
+        android:icon="@drawable/qrcode"
+        android:title="Scanned"/>
+    <item
+        android:id="@+id/Profile"
+        android:enabled="true"
+        android:icon="@drawable/person"
+        android:title="Profile"/>
+</menu>
