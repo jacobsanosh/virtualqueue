@@ -7,11 +7,12 @@ public class BusinessDatabase {
     public int pincode;
     public String description;
     public String category;
+    public int image;
 
     public BusinessDatabase(){}
 
-    public BusinessDatabase(String name) {
-        this.name = name;
+    public BusinessDatabase(int image) {
+        this.image = image;
     }
 
     public BusinessDatabase(String name, String address, long phone, int pincode, String description, String category) {
@@ -69,5 +70,9 @@ public class BusinessDatabase {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getImage() {
+        return image;
     }
 }
