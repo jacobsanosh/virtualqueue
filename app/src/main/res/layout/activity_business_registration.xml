@@ -112,33 +112,60 @@
         android:id="@+id/text_view_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:text="Category"
-        app:layout_constraintBottom_toTopOf="@+id/image_choose"
+        app:layout_constraintBottom_toTopOf="@+id/text_view_type"
         app:layout_constraintEnd_toStartOf="@+id/spinner"
+        app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_description"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_input_description" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:entries="@array/category"
-        app:layout_constraintBottom_toTopOf="@+id/image_choose"
+        app:layout_constraintBottom_toBottomOf="@+id/text_view_category"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_view_category"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_description"/>
+        app:layout_constraintTop_toTopOf="@+id/text_view_category" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_view_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Type"
+        app:layout_constraintBottom_toTopOf="@+id/image_choose"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_type"
+        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_category" />
+
+    <Spinner
+        android:id="@+id/spinner_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/text_view_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_view_type" />
 
     <Button
         android:id="@+id/image_choose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:text="Choose image"
         app:layout_constraintBottom_toTopOf="@+id/button_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_view_type" />
 
     <Button
         android:id="@+id/button_register"

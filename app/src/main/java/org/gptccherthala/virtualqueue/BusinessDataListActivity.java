@@ -1,13 +1,12 @@
 package org.gptccherthala.virtualqueue;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,9 +18,9 @@ import java.util.ArrayList;
 
 public class BusinessDataListActivity extends AppCompatActivity {
 
+    String category;
     private RecyclerView mBusinessDataListRecView;
     private DatabaseReference mDataBase;
-    String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +40,11 @@ public class BusinessDataListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    BusinessDataListRecViewAdapter adapter = new BusinessDataListRecViewAdapter(BusinessDataListActivity.this);
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         businessDatabase.add(dataSnapshot.getValue(BusinessDatabase.class));
+                        adapter.setBusinessDatabase(businessDatabase);
                     }
-
-                    BusinessDataListRecViewAdapter adapter = new BusinessDataListRecViewAdapter();
-                    adapter.setBusinessDatabase(businessDatabase);
-
                     mBusinessDataListRecView.setAdapter(adapter);
                 }
             }

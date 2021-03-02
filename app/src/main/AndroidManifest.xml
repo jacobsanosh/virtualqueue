@@ -12,14 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VirtualQueue">
+
         <activity android:name=".BusinessDataListSub">
 
         </activity>
         <activity android:name=".BusinessHome" />
+
+
         <activity android:name=".BusinessDataListActivity" />
         <activity android:name=".UserHomeActivity" />
-        <activity android:name=".BusinessRegistrationActivity" />
         <activity android:name=".UserRegistrationActivity" />
+        <activity android:name=".BusinessRegistrationActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

@@ -14,4 +14,18 @@
         <item>Hotel</item>
         <item>Office</item>
     </array>
+    <array name="type_shop">
+        <item>Textile</item>
+        <item>Stationary</item>
+        <item>Bakery</item>
+        <item>Medical Store</item>
+        <item>Foot wares Shop</item>
+    </array>
+    <array name="type_hotel">
+        <item>Vegiterian</item>
+        <item>Non-Veg</item>
+    </array>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Textiles</string>
+    <string name="tab_text_2">Bakery</string>
 </resources>
