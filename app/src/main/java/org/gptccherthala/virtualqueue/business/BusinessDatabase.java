@@ -1,4 +1,4 @@
-package org.gptccherthala.virtualqueue;
+package org.gptccherthala.virtualqueue.business;
 
 public class BusinessDatabase {
     public String name;
@@ -7,16 +7,20 @@ public class BusinessDatabase {
     public int pincode;
     public String description;
     public String category;
-
-    public int image;
-
+    public int imagePath;
     public String imageUrl;
+    public String type;
 
+    public BusinessDatabase() {
+    }
 
-    public BusinessDatabase(){}
+    public BusinessDatabase(int imagePath) {
+        this.imagePath = imagePath;
+    }
 
-    public BusinessDatabase(int image) {
-        this.image = image;
+    public BusinessDatabase(int imagePath, String type) {
+        this.imagePath = imagePath;
+        this.type = type;
     }
 
     public BusinessDatabase(String name, String address, long phone, int pincode, String description, String category, String imageUrl) {
@@ -27,6 +31,14 @@ public class BusinessDatabase {
         this.description = description;
         this.category = category;
         this.imageUrl = imageUrl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -77,9 +89,8 @@ public class BusinessDatabase {
         this.category = category;
     }
 
-
-    public int getImage() {
-        return image;
+    public int getImagePath() {
+        return imagePath;
     }
 
     public String getImageUrl() {
@@ -88,6 +99,5 @@ public class BusinessDatabase {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-
     }
 }

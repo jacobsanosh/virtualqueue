@@ -5,7 +5,7 @@
     android:id="@+id/heading"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BusinessHome">
+    tools:context=".business.BusinessHomeActivity">
 
     <TextView
         android:id="@+id/Heading"

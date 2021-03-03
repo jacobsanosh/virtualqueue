@@ -25,7 +25,4 @@
         <item>Vegiterian</item>
         <item>Non-Veg</item>
     </array>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="tab_text_1">Textiles</string>
-    <string name="tab_text_2">Bakery</string>
 </resources>

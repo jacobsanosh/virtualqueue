@@ -13,16 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VirtualQueue">
 
-        <activity android:name=".BusinessDataListSub">
-
-        </activity>
-        <activity android:name=".BusinessHome" />
-
-
-        <activity android:name=".BusinessDataListActivity" />
-        <activity android:name=".UserHomeActivity" />
-        <activity android:name=".UserRegistrationActivity" />
-        <activity android:name=".BusinessRegistrationActivity" />
+        <activity android:name=".business.BusinessDataListSubActivity" />
+        <activity android:name=".business.BusinessHomeActivity" />
+        <activity android:name=".business.BusinessDataListActivity" />
+        <activity android:name=".user.UserHomeActivity" />
+        <activity android:name=".user.UserRegistrationActivity" />
+        <activity android:name=".business.BusinessRegistrationActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -30,7 +26,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

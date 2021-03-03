@@ -1,41 +1,37 @@
-package org.gptccherthala.virtualqueue;
+package org.gptccherthala.virtualqueue.business;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 
-public class BusinessHome extends AppCompatActivity {
-    BottomNavigationView BottomNav;
+import org.gptccherthala.virtualqueue.R;
 
-
+public class BusinessHomeActivity extends AppCompatActivity {
     //BottomNav code
     private final BottomNavigationView.OnNavigationItemSelectedListener nav = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-           switch (item.getItemId()) {
+            switch (item.getItemId()) {
                 case R.id.Details:
-                    Toast.makeText(BusinessHome.this, "Details...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BusinessHomeActivity.this, "Details...", Toast.LENGTH_LONG).show();
                     return true;
                 case R.id.QrReader:
-                    Toast.makeText(BusinessHome.this, "qrreaders is clicked.....", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BusinessHomeActivity.this, "qrreaders is clicked.....", Toast.LENGTH_LONG).show();
                     return true;
                 case R.id.Profile:
-                    Toast.makeText(BusinessHome.this, "profile is clicked.....", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BusinessHomeActivity.this, "profile is clicked.....", Toast.LENGTH_LONG).show();
                     return true;
 
             }
             return false;
         }
     };
-
+    BottomNavigationView BottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +39,6 @@ public class BusinessHome extends AppCompatActivity {
         setContentView(R.layout.activity_business_home);
         BottomNav = findViewById(R.id.BottomNav);
         BottomNav.setOnNavigationItemSelectedListener(nav);
-
     }
 
 }
