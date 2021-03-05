@@ -28,7 +28,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.Objects;
 
-public class BusinessRegistrationActivity extends AppCompatActivity {
+public class BusinessRegistrationActivity extends AppCompatActivity
+{
 
     private final int PICK_IMAGE_REQUEST = 71;
     EditText etCompanyName;
@@ -47,10 +48,10 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
     private String imageUrl;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_registration);
-
         etCompanyName = findViewById(R.id.text_company_name);
         etAddress = findViewById(R.id.text_address);
         etPhone = findViewById(R.id.text_phone);
@@ -64,88 +65,101 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
         userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         mStorageReference = FirebaseStorage.getInstance().getReference();
 
-        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
                 String type = spCategory.getSelectedItem().toString();
-
                 switch (type){
-                    case "Shop": {
-                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
-                                R.array.type_shop, android.R.layout.simple_spinner_item);
-
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spType.setAdapter(adapter);
-                        break;
-                    }
-                    case "Hotel": {
-                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
-                                R.array.type_hotel, android.R.layout.simple_spinner_item);
-
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spType.setAdapter(adapter);
-                        break;
-                    }
-                    default:
-                        break;
-                }
+                                case "Shop":
+                                    {
+                                                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
+                                                R.array.type_shop, android.R.layout.simple_spinner_item);
+                                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                                spType.setAdapter(adapter);
+                                                break;
+                                    }
+                                case "Hotel":
+                                    {
+                                            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
+                                            R.array.type_hotel, android.R.layout.simple_spinner_item);
+                                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                            spType.setAdapter(adapter);
+                                            break;
+                                    }
+                                default:
+                                        break;
+                        }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+
         });
 
-        btnChoose.setOnClickListener(new View.OnClickListener() {
+        btnChoose.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 chooseImage();
             }
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 try {
-
-                    String name = etCompanyName.getText().toString();
-                    String address = etAddress.getText().toString();
-                    String phoneString = etPhone.getText().toString();
-                    long phone = 0;
-                    if (!phoneString.equals("")) {
-                        phone = Long.parseLong(phoneString);
-                    }
-
-                    int pincode = 0;
-                    String pincodeString = etPinCode.getText().toString();
-                    if (!pincodeString.equals("")) {
-                        pincode = Integer.parseInt(pincodeString);
-                    }
-
-                    String description = etDescription.getText().toString();
-                    String category = spCategory.getSelectedItem().toString();
-                    String type = spType.getSelectedItem().toString();
-
-                    if (checkFieldData(name, address, pincode, phoneString, description)) {
-                        try {
-                            BusinessDatabase data = new BusinessDatabase(name, address, phone, pincode, description, category, imageUrl);
-
-                            mDataBase.child("business").child(category).child(type).child(userId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(BusinessRegistrationActivity.this, "Success", Toast.LENGTH_SHORT);
-                                    } else {
-                                        Toast.makeText(BusinessRegistrationActivity.this, "Failed", Toast.LENGTH_SHORT);
-                                    }
+                            String name = etCompanyName.getText().toString();
+                            String address = etAddress.getText().toString();
+                            String phoneString = etPhone.getText().toString();
+                            long phone = 0;
+                            if (!phoneString.equals(""))
+                            {
+                                phone = Long.parseLong(phoneString);
+                            }
+                            int pincode = 0;
+                            String pincodeString = etPinCode.getText().toString();
+                            if (!pincodeString.equals(""))
+                            {
+                                pincode = Integer.parseInt(pincodeString);
+                            }
+                            String description = etDescription.getText().toString();
+                            String category = spCategory.getSelectedItem().toString();
+                            String type = spType.getSelectedItem().toString();
+                            uploadImage();
+                            if (checkFieldData(name, address, pincode, phoneString, description,imageUrl))
+                            {
+                                try {
+                                        BusinessDatabase data = new BusinessDatabase(name, address, phone, pincode, description, category, imageUrl);
+                                        mDataBase.child("business").child(category).child(type).child(userId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>()
+                                        {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task)
+                                            {
+                                                if (task.isSuccessful())
+                                                {
+                                                    Toast.makeText(BusinessRegistrationActivity.this, "Success", Toast.LENGTH_SHORT);
+                                                } else
+                                                 {
+                                                    Toast.makeText(BusinessRegistrationActivity.this, "Failed", Toast.LENGTH_SHORT);
+                                                }
+                                            }
+                                        });
                                 }
-                            });
-                        } catch (DatabaseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } catch (Exception e) {
+                                 catch (DatabaseException e)
+                                 {
+                                    e.printStackTrace();
+                                 }
+                            }
+                }
+                catch (Exception e)
+                {
                     e.printStackTrace();
                 }
             }
@@ -153,27 +167,31 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
 
     }
 
-    public boolean checkFieldData(String companyName, String address, int pincode
-            , String phone, String description) {
-        if (companyName.trim().length() == 0) {
+    public boolean checkFieldData(String companyName, String address, int pincode, String phone, String description,String imageUrl)
+    {
+
+        if (companyName.trim().length() == 0)
+        {
             etCompanyName.setError("Name required");
             return false;
         }
-
-        if (address.trim().length() == 0) {
+        if (address.trim().length() == 0)
+        {
             etAddress.setError("Address required");
             return false;
         }
-
-        if (pincode == 0) {
+        if (pincode == 0)
+        {
             etPinCode.setError("Pincode required");
             return false;
         }
-
-        if (phone.trim().length() == 0) {
+        if (phone.trim().length() == 0)
+        {
             etPhone.setError("Phone Number required");
             return false;
-        } else if (phone.trim().length() != 10) {
+        }
+        else if (phone.trim().length() != 10)
+        {
             etPhone.setError("Invalid Phone Number");
             return false;
         }
@@ -182,6 +200,12 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
             etDescription.setError("Description required");
             return false;
         }
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            Toast.makeText(BusinessRegistrationActivity.this,"kkk" + imageUrl,Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+
 
         return true;
     }
@@ -199,7 +223,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             filePath = data.getData();
-            uploadImage();
+           // uploadImage();
         }
     }
 

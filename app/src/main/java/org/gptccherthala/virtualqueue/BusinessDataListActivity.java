@@ -32,7 +32,7 @@ public class BusinessDataListActivity extends AppCompatActivity {
         category = intent.getStringExtra("category");
 
         mBusinessDataListRecView = findViewById(R.id.businessDataListRecView);
-        mDataBase = FirebaseDatabase.getInstance().getReference("/business/" + category);
+        mDataBase = FirebaseDatabase.getInstance().getReference("/business/" + category + "/Textile");
 
         ArrayList<BusinessDatabase> businessDatabase = new ArrayList<>();
 

@@ -29,6 +29,10 @@ public class BusinessHome extends AppCompatActivity {
                     return true;
                 case R.id.Profile:
                     Toast.makeText(BusinessHome.this, "profile is clicked.....", Toast.LENGTH_LONG).show();
+                    FirebaseAuth.getInstance().signOut();
+                    Intent LoginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(LoginActivity);
+                    finish();
                     return true;
 
             }

@@ -14,11 +14,8 @@
         android:theme="@style/Theme.VirtualQueue">
 
         <activity android:name=".BusinessDataListSub">
-
         </activity>
         <activity android:name=".BusinessHome" />
-
-
         <activity android:name=".BusinessDataListActivity" />
         <activity android:name=".UserHomeActivity" />
         <activity android:name=".UserRegistrationActivity" />
@@ -30,7 +27,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

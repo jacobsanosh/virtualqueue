@@ -7,11 +7,8 @@ public class BusinessDatabase {
     public int pincode;
     public String description;
     public String category;
-
     public int image;
-
     public String imageUrl;
-
 
     public BusinessDatabase(){}
 
@@ -88,6 +85,5 @@ public class BusinessDatabase {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-
     }
 }
