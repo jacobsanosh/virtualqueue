@@ -6,170 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".user.UserHomeActivity">
 
-   <!--<androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <!--<androidx.appcompat.widget.SearchView
+         android:id="@+id/searchView"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="8dp"
+         android:layout_marginTop="32dp"
+         android:layout_marginEnd="8dp"
+         android:background="@drawable/my_border"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+         -->
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/my_border"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-        -->
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/hotel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/shop"
-        app:layout_constraintEnd_toStartOf="@+id/office"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/BtnHotel"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:background="@layout/border"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/hotel" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/office"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/bank"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hotel"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <ImageButton
-            android:id="@+id/BtnOffice"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/office" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/shop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toStartOf="@+id/bank"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hotel"
-        app:layout_constraintBottom_toTopOf="@+id/hospital">
-
-        <ImageButton
-            android:id="@+id/BtnShop"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/shop" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/bank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="8dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintStart_toEndOf="@+id/shop"
-        app:layout_constraintTop_toBottomOf="@+id/office"
-        app:layout_constraintBottom_toTopOf="@+id/others"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageButton
-            android:id="@+id/BtnBank"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/bank" />
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/hospital"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toStartOf="@+id/others"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop"
-        app:layout_constraintBottom_toTopOf="@+id/BottomNav">
-
-        <ImageButton
-            android:id="@+id/BtnHospital"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/hospital" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/others"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="8dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintStart_toEndOf="@+id/hospital"
-        app:layout_constraintTop_toBottomOf="@+id/bank"
-        app:layout_constraintBottom_toTopOf="@+id/BottomNav"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageButton
-            android:id="@+id/BtnOthers"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/others" />
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintBottom_toTopOf="@+id/BottomNav"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/BottomNav"

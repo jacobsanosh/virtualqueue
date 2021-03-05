@@ -7,62 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".business.BusinessHomeActivity">
 
-    <TextView
-        android:id="@+id/Heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="Comapnyname"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="92dp"
-        tools:layout_editor_absoluteY="36dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
-        />
-
-    <TextView
-        android:id="@+id/shopdetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Opened or Closed"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/openOrClosed"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Heading" />
-
-    <Switch
-        android:id="@+id/openOrClosed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:switchMinWidth="56dp"
-        android:textOff="OFF"
-        android:textOn="ON"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Heading"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-
-    <TextView
-        android:id="@+id/qLength"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        android:text="Queue length :-"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shopdetail" />
+        app:layout_constraintBottom_toTopOf="@+id/BottomNav"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/BottomNav"
@@ -72,7 +24,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@layout/bottom_navigation_of_company" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
