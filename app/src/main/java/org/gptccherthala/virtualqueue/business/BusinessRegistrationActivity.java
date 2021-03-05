@@ -157,7 +157,9 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
                     String category = spCategory.getSelectedItem().toString();
                     String type = spType.getSelectedItem().toString();
 
-                    if (checkFieldData(name, address, pincode, phoneString, description)) {
+                    uploadImage();
+
+                    if (checkFieldData(name, address, pincode, phoneString, description, imageUrl)) {
                         try {
                             BusinessDatabase data = new BusinessDatabase(name, address, phone, pincode, description, category, imageUrl);
 
@@ -184,7 +186,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
     }
 
     public boolean checkFieldData(String companyName, String address, int pincode
-            , String phone, String description) {
+            , String phone, String description, String imageUrl) {
         if (companyName.trim().length() == 0) {
             etCompanyName.setError("Name required");
             return false;
@@ -213,6 +215,11 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
             return false;
         }
 
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            Toast.makeText(BusinessRegistrationActivity.this,"An ERROR OCCURED ",Toast.LENGTH_LONG).show();
+            return false;
+        }
+
         return true;
     }
 
@@ -229,7 +236,6 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             filePath = data.getData();
-            uploadImage();
         }
     }
 

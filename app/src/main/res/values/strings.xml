@@ -10,38 +10,73 @@
     <string name="business_text">Business</string>
     <string name="continue_button">Continue</string>
     <array name="category">
-        <item>Shop</item>
         <item>Hotel</item>
         <item>Office</item>
+        <item>Shop</item>
         <item>Bank</item>
         <item>Hospital</item>
-        <item>Other</item>
+        <item>Others</item>
     </array>
     <array name="type_shop">
-        <item>Textile</item>
-        <item>Stationary</item>
+        <item>Super market</item>
         <item>Bakery</item>
+        <item>General stores</item>
+        <item>Fruits and veg</item>
+        <item>Ladies stores</item>
+        <item>Electrical shop</item>
+        <item>Medical stores</item>
+        <item>Fish shop</item>
+        <item>Furniture</item>
+        <item>Crockery shop</item>
+        <item>Saloon</item>
+        <item>Textile</item>
+        <item>Kids ware</item>
+        <item>Flowers</item>
+        <item>Hardware shop</item>
+        <item>Stationary</item>
+        <item>Stationary</item>
         <item>Medical Store</item>
-        <item>Foot wares Shop</item>
     </array>
     <array name="type_hotel">
-        <item>Vegiterian</item>
+        <item>Vegetarian</item>
         <item>Non-Veg</item>
+        <item>veg and non-veg</item>
     </array>
-    <array name="type_office">
-        <item>Vegiterian</item>
-        <item>Non-Veg</item>
-    </array>
+
     <array name="type_hospital">
-        <item>Vegiterian</item>
-        <item>Non-Veg</item>
+        <item>Homeo Hospital</item>
+        <item>Dental Hospital</item>
+        <item>ENT</item>
+        <item>General</item>
+        <item>Ayurvedic Hospital</item>
+        <item>Skin</item>
+        <item>Ophthalmologist</item>
+        <item>Allopathic</item>
+        <item>IVF Hospital</item>
+        <item>De addiction-center</item>
+        <item>De addiction-center</item>
+        <item>Physiotherapy</item>
+        <item>Brain and spine Hospital</item>
+        <item>Palliative care center</item>
+        <item>Yunani Hospitals</item>
+        <item>Ortho Hospital</item>
     </array>
     <array name="type_bank">
-        <item>Vegiterian</item>
-        <item>Non-Veg</item>
+        <item>central Bank</item>
+        <item>Commercial Bank</item>
+        <item>Shadow Bank</item>
+        <item>Investment Bank</item>
+        <item>Cooperative Bank</item>
+        <item>Credit Union</item>
     </array>
-    <array name="type_other">
-        <item>Vegiterian</item>
-        <item>Non-Veg</item>
+
+    <array name="type_office">
+        <item>Krishi Bhavans</item>
+        <item>College Offices</item>
+        <item>Village Offices</item>
+        <item>KSEB</item>
+        <item>Sub Registration office</item>
+        <item>Post Office</item>
+
     </array>
 </resources>

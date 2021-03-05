@@ -41,7 +41,7 @@ public class UserHomeActivity extends AppCompatActivity {
             return false;
         }
     };
-    ImageButton BtnHotel, BtnOffice, BtnShop, BtnBank;
+    ImageButton BtnHotel, BtnOffice, BtnShop, BtnBank,BtnHospital,BtnOthers;
     BottomNavigationView BottomNav;
     String test = "";
 
@@ -56,6 +56,8 @@ public class UserHomeActivity extends AppCompatActivity {
         BtnShop = findViewById(R.id.BtnShop);
         BtnBank = findViewById(R.id.BtnBank);
         BottomNav = findViewById(R.id.BottomNav);
+        BtnHospital = findViewById(R.id.BtnHospital);
+        BtnOthers = findViewById(R.id.BtnOthers);
 
 
         BottomNav.setOnNavigationItemSelectedListener(nav);
@@ -98,6 +100,28 @@ public class UserHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent businessDataListSub = new Intent(getApplicationContext(), BusinessDataListSubActivity.class);
                 businessDataListSub.putExtra("category", "Bank");
+                startActivity(businessDataListSub);
+            }
+        });
+
+        // for onclick of btnHospital
+
+        BtnHospital.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent businessDataListSub = new Intent(getApplicationContext(), BusinessDataListSubActivity.class);
+                businessDataListSub.putExtra("category","Hospital");
+                startActivity(businessDataListSub);
+            }
+        });
+
+        // fir other types
+
+        BtnOthers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent businessDataListSub = new Intent(getApplicationContext(),BusinessDataListSubActivity.class);
+                businessDataListSub.putExtra("category","Others");
                 startActivity(businessDataListSub);
             }
         });
