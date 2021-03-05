@@ -180,5 +180,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@layout/button_navigation_menu" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

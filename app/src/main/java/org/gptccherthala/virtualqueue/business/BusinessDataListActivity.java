@@ -1,5 +1,6 @@
 package org.gptccherthala.virtualqueue.business;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 
 public class BusinessDataListActivity extends AppCompatActivity {
 
-    String category;
     private RecyclerView mBusinessDataListRecView;
     private DatabaseReference mDataBase;
 
@@ -28,14 +28,13 @@ public class BusinessDataListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_data_list);
 
-        //Intent intent = getIntent();
+        Bundle data = getIntent().getExtras();
 
-        //category = intent.getStringExtra("category");
-
-        //startActivity(new Intent(this, BusinessDataListSubActivity.class));
+        String type = data.getString("type");
+        String category = data.getString("category");
 
         mBusinessDataListRecView = findViewById(R.id.businessDataListRecView);
-        mDataBase = FirebaseDatabase.getInstance().getReference("/business/Shop/Textile");
+        mDataBase = FirebaseDatabase.getInstance().getReference("/business/" + category + "/" + type);
 
         ArrayList<BusinessDatabase> businessDatabase = new ArrayList<>();
 
@@ -43,7 +42,6 @@ public class BusinessDataListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    //Toast.makeText(getApplicationContext(), "If ss", Toast.LENGTH_SHORT).show();
                     BusinessDataListRecViewAdapter adapter = new BusinessDataListRecViewAdapter(BusinessDataListActivity.this);
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         businessDatabase.add(dataSnapshot.getValue(BusinessDatabase.class));

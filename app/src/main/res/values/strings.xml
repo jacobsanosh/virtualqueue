@@ -13,6 +13,9 @@
         <item>Shop</item>
         <item>Hotel</item>
         <item>Office</item>
+        <item>Bank</item>
+        <item>Hospital</item>
+        <item>Other</item>
     </array>
     <array name="type_shop">
         <item>Textile</item>
@@ -22,6 +25,22 @@
         <item>Foot wares Shop</item>
     </array>
     <array name="type_hotel">
+        <item>Vegiterian</item>
+        <item>Non-Veg</item>
+    </array>
+    <array name="type_office">
+        <item>Vegiterian</item>
+        <item>Non-Veg</item>
+    </array>
+    <array name="type_hospital">
+        <item>Vegiterian</item>
+        <item>Non-Veg</item>
+    </array>
+    <array name="type_bank">
+        <item>Vegiterian</item>
+        <item>Non-Veg</item>
+    </array>
+    <array name="type_other">
         <item>Vegiterian</item>
         <item>Non-Veg</item>
     </array>

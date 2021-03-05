@@ -72,6 +72,22 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
                 String type = spCategory.getSelectedItem().toString();
 
                 switch (type) {
+                    case "Hotel": {
+                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
+                                R.array.type_hotel, android.R.layout.simple_spinner_item);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spType.setAdapter(adapter);
+                        break;
+                    }
+                    case "Office": {
+                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
+                                R.array.type_office, android.R.layout.simple_spinner_item);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spType.setAdapter(adapter);
+                        break;
+                    }
                     case "Shop": {
                         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
                                 R.array.type_shop, android.R.layout.simple_spinner_item);
@@ -80,12 +96,24 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
                         spType.setAdapter(adapter);
                         break;
                     }
-                    case "Hotel": {
+                    case "Bank": {
                         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
-                                R.array.type_hotel, android.R.layout.simple_spinner_item);
+                                R.array.type_bank, android.R.layout.simple_spinner_item);
 
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spType.setAdapter(adapter);
+                        break;
+                    }
+                    case "Hospital": {
+                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
+                                R.array.type_hospital, android.R.layout.simple_spinner_item);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spType.setAdapter(adapter);
+                        break;
+                    }
+                    case "Other": {
+                        //TODO Implement methods for type other
                         break;
                     }
                     default:

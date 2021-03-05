@@ -18,7 +18,8 @@ public class BusinessDatabase {
         this.imagePath = imagePath;
     }
 
-    public BusinessDatabase(int imagePath, String type) {
+    public BusinessDatabase(int imagePath, String type, String category) {
+        this.category = category;
         this.imagePath = imagePath;
         this.type = type;
     }

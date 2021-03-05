@@ -26,7 +26,7 @@ public class BusinessDataListSubRecViewAdapter extends RecyclerView.Adapter<Busi
     public BusinessDataListSubRecViewAdapter() {
     }
 
-    public void setmDatabase(ArrayList<BusinessDatabase> mDatabase) {
+    public void setDatabase(ArrayList<BusinessDatabase> mDatabase) {
         this.mDatabase = mDatabase;
         notifyDataSetChanged();
     }
@@ -47,6 +47,8 @@ public class BusinessDataListSubRecViewAdapter extends RecyclerView.Adapter<Busi
             @Override
             public void onClick(View v) {
                 Intent businessDataListActivity = new Intent(mContext, BusinessDataListActivity.class);
+                businessDataListActivity.putExtra("type", mDatabase.get(position).getType());
+                businessDataListActivity.putExtra("category", mDatabase.get(position).getCategory());
                 mContext.startActivity(businessDataListActivity);
             }
         });
