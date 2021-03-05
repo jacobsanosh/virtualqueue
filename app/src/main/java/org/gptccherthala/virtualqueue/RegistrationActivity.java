@@ -62,11 +62,11 @@ public class RegistrationActivity extends AppCompatActivity {
                                         String selectedButtonString = selectedRadioButton.getText().toString();
 
                                         if (selectedButtonString.equals("User")) {
-                                            Intent UserRegistrationActivity = new Intent(getApplicationContext(), UserRegistrationActivity.class);
+                                            Intent UserRegistrationActivity = new Intent(getApplicationContext(), org.gptccherthala.virtualqueue.user.UserRegistrationActivity.class);
                                             startActivity(UserRegistrationActivity);
                                             RegistrationActivity.this.finish();
                                         } else {
-                                            Intent BusinessRegistrationActivity = new Intent(getApplicationContext(), BusinessRegistrationActivity.class);
+                                            Intent BusinessRegistrationActivity = new Intent(getApplicationContext(), org.gptccherthala.virtualqueue.business.BusinessRegistrationActivity.class);
                                             startActivity(BusinessRegistrationActivity);
                                             RegistrationActivity.this.finish();
                                         }

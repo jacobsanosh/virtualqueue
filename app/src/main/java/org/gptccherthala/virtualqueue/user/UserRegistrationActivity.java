@@ -1,4 +1,4 @@
-package org.gptccherthala.virtualqueue;
+package org.gptccherthala.virtualqueue.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.gptccherthala.virtualqueue.R;
 
 public class UserRegistrationActivity extends AppCompatActivity {
 
@@ -56,7 +58,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(UserRegistrationActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                                    Intent UserHomeActivity = new Intent(getApplicationContext(), UserHomeActivity.class);
+                                    Intent UserHomeActivity = new Intent(getApplicationContext(), org.gptccherthala.virtualqueue.user.UserHomeActivity.class);
                                     startActivity(UserHomeActivity);
                                     UserRegistrationActivity.this.finish();
                                 } else {
@@ -91,7 +93,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
             etPinCode.setError("Pincode required");
             return false;
         }
-
         return true;
     }
 }

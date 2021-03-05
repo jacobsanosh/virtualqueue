@@ -1,10 +1,9 @@
-package org.gptccherthala.virtualqueue;
+package org.gptccherthala.virtualqueue.user;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -15,13 +14,10 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.gptccherthala.virtualqueue.R;
+import org.gptccherthala.virtualqueue.business.BusinessDataListSubActivity;
+
 public class UserHomeActivity extends AppCompatActivity {
-    //creating objects for each btn
-
-    ImageButton BtnHotel,BtnOffice,BtnShop,BtnBank;
-
-    BottomNavigationView BottomNav;
-    String test = "";
     //BottomNavigator code
     private final BottomNavigationView.OnNavigationItemSelectedListener nav = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -33,10 +29,9 @@ public class UserHomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.Profile:
                     FirebaseAuth.getInstance().signOut();
-                    Intent LoginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent LoginActivity = new Intent(getApplicationContext(), org.gptccherthala.virtualqueue.LoginActivity.class);
                     startActivity(LoginActivity);
                     finish();
-
                     return true;
                 case R.id.Qr:
                     Toast.makeText(UserHomeActivity.this, "qr is clicked.....", Toast.LENGTH_LONG).show();
@@ -46,6 +41,9 @@ public class UserHomeActivity extends AppCompatActivity {
             return false;
         }
     };
+    ImageButton BtnHotel, BtnOffice, BtnShop, BtnBank;
+    BottomNavigationView BottomNav;
+    String test = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,43 +66,39 @@ public class UserHomeActivity extends AppCompatActivity {
         BtnHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent businessDataListActivity = new Intent(getApplicationContext(), BusinessDataListActivity.class);
-                businessDataListActivity.putExtra("category", "Hotel");
-                startActivity(businessDataListActivity);
+                Intent businessDataListSub = new Intent(getApplicationContext(), BusinessDataListSubActivity.class);
+                businessDataListSub.putExtra("category", "Hotel");
+                startActivity(businessDataListSub);
             }
         });
 
         // checking whether BtnOffice is clicked
-
         BtnOffice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent businessDataListActivity = new Intent(getApplicationContext(), BusinessDataListActivity.class);
-                businessDataListActivity.putExtra("category", "Office");
-                startActivity(businessDataListActivity);
+                Intent businessDataListSub = new Intent(getApplicationContext(), BusinessDataListSubActivity.class);
+                businessDataListSub.putExtra("category", "Office");
+                startActivity(businessDataListSub);
             }
         });
 
-
         // checking whether BtnShop is clicked
-
         BtnShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent businessDataListActivity = new Intent(getApplicationContext(), BusinessDataListActivity.class);
-                businessDataListActivity.putExtra("category", "Shop");
-                startActivity(businessDataListActivity);
+                Intent businessDataListSub = new Intent(getApplicationContext(), BusinessDataListSubActivity.class);
+                businessDataListSub.putExtra("category", "Shop");
+                startActivity(businessDataListSub);
             }
         });
 
         // checking whether BtnBank is clicked
-
         BtnBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent businessDataListActivity = new Intent(getApplicationContext(), BusinessDataListActivity.class);
-                businessDataListActivity.putExtra("category", "Bank");
-                startActivity(businessDataListActivity);
+                Intent businessDataListSub = new Intent(getApplicationContext(), BusinessDataListSubActivity.class);
+                businessDataListSub.putExtra("category", "Bank");
+                startActivity(businessDataListSub);
             }
         });
     }

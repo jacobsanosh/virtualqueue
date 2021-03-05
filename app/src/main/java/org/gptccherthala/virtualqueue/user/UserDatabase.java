@@ -1,12 +1,11 @@
-package org.gptccherthala.virtualqueue;
+package org.gptccherthala.virtualqueue.user;
 
 public class UserDatabase {
     public String name;
     public long phoneNumber;
     public int pinCode;
 
-    public UserDatabase(){
-
+    public UserDatabase() {
     }
 
     public UserDatabase(String name, long phoneNumber, int pinCode) {

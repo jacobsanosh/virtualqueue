@@ -1,4 +1,4 @@
-package org.gptccherthala.virtualqueue;
+package org.gptccherthala.virtualqueue.business;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.gptccherthala.virtualqueue.R;
 
 import java.util.Objects;
 
@@ -69,7 +71,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String type = spCategory.getSelectedItem().toString();
 
-                switch (type){
+                switch (type) {
                     case "Shop": {
                         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(BusinessRegistrationActivity.this,
                                 R.array.type_shop, android.R.layout.simple_spinner_item);

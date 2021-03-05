@@ -16,6 +16,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.gptccherthala.virtualqueue.user.UserHomeActivity;
+
 public class LoginActivity extends AppCompatActivity {
 
     Button registerButton;
@@ -33,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            Intent UserHomeActivity = new Intent(getApplicationContext(),UserHomeActivity.class);
+            Intent UserHomeActivity = new Intent(getApplicationContext(), org.gptccherthala.virtualqueue.user.UserHomeActivity.class);
             startActivity(UserHomeActivity);
             LoginActivity.this.finish();
         }
