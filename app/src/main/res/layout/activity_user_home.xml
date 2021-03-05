@@ -163,7 +163,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
-            android:id="@+id/Btnothers"
+            android:id="@+id/BtnOthers"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="120dp"
             android:layout_height="120dp"
