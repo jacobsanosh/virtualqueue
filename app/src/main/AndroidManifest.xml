@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VirtualQueue">
-
+        <activity android:name=".user.Userprofile"></activity>
         <activity android:name=".business.BusinessDataListSubActivity" />
         <activity android:name=".business.BusinessHomeActivity" />
         <activity android:name=".business.BusinessDataListActivity" />
