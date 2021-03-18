@@ -2,6 +2,7 @@ package org.gptccherthala.virtualqueue.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,13 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.gptccherthala.virtualqueue.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserRegistrationActivity extends AppCompatActivity {
 
@@ -27,6 +35,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     Button btRegister;
     String userId;
     private DatabaseReference mDataBase;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +46,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
         etPhone = findViewById(R.id.text_phone);
         etPinCode = findViewById(R.id.text_pincode);
         btRegister = findViewById(R.id.button_register);
-        mDataBase = FirebaseDatabase.getInstance().getReference();
+        //mDataBase = FirebaseDatabase.getInstance().getReference();
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String TAG = "Testing";
 
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,12 +61,18 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                 if (checkFieldData(name, phoneString, pincode)) {
                     try {
-                        UserDatabase data = new UserDatabase(name, phone, pincode);
+                        Map<String, Object> user = new HashMap<>();
+                        //user.put("Uid", userId);
+                        user.put("Name", name);
+                        user.put("Phone", phone);
+                        user.put("PinCode", pincode);
 
-                        mDataBase.child("users").child(userId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        db.collection("users")
+                                .document(userId)
+                                .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
+                                if(task.isSuccessful()) {
                                     Toast.makeText(UserRegistrationActivity.this, "Success", Toast.LENGTH_SHORT).show();
                                     Intent UserHomeActivity = new Intent(getApplicationContext(), org.gptccherthala.virtualqueue.user.UserHomeActivity.class);
                                     startActivity(UserHomeActivity);
