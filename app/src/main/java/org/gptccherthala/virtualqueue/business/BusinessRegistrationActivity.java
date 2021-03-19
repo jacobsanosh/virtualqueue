@@ -22,12 +22,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import org.gptccherthala.virtualqueue.R;
+import org.gptccherthala.virtualqueue.user.UserRegistrationActivity;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class BusinessRegistrationActivity extends AppCompatActivity {
@@ -47,6 +51,10 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
     private DatabaseReference mDataBase;
     private StorageReference mStorageReference;
     private String imageUrl;
+
+    // for firestore
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +171,43 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
                         try {
                             BusinessDatabase data = new BusinessDatabase(name, address, phone, pincode, description, category, imageUrl);
 
-                            mDataBase.child("business").child(category).child(type).child(userId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                           // business an variable with key value pair used to store in fire store using key value pair
+
+                            Map<String , Object> Business = new HashMap<>();
+
+                            // name is an key value pair and store the value in db
+
+                            Business.put("Name", name);
+                            Business.put("Address", address);
+                            Business.put("Phone", phone);
+                            Business.put("Pincode", pincode);
+                            Business.put("Description", description);
+                            Business.put("Category", category);
+                            Business.put("ImageUrl", imageUrl);
+
+                            // it this collection path Business will be the document name userId
+
+                            db.collection("Business")
+                                    .document(userId).set(Business).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()) // if the task is successful
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Business registration Success", Toast.LENGTH_SHORT).show();
+                                        Intent business = new Intent(getApplicationContext(),BusinessHomeActivity.class);
+                                        startActivity(business);
+                                        BusinessRegistrationActivity.this.finish();
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Failes to register", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+
+
+                           /* mDataBase.child("business").child(category).child(type).child(userId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
@@ -172,8 +216,9 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
                                         Toast.makeText(BusinessRegistrationActivity.this, "Failed", Toast.LENGTH_SHORT);
                                     }
                                 }
-                            });
-                        } catch (DatabaseException e) {
+                            });*/
+                        }
+                        catch (DatabaseException e) {
                             e.printStackTrace();
                         }
                     }
