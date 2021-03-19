@@ -2,6 +2,7 @@ package org.gptccherthala.virtualqueue;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,11 +16,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.gptccherthala.virtualqueue.business.BusinessHomeActivity;
 import org.gptccherthala.virtualqueue.user.UserHomeActivity;
@@ -32,8 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText etEmail;
     EditText etPassword;
     Button loginBtn;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,35 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            mDatabase = FirebaseDatabase.getInstance().getReference("/users/");
-            String Uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-            mDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    boolean flag = false;
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        System.out.println("Uid/; " + dataSnapshot.getKey());
-                        System.out.println("Uid curr; " + Uid);
-                        if(dataSnapshot.getKey().equals(Uid)){
-                            flag = true;
-                        }
-                    }
-                    if(flag){
-                        Intent UserHomeActivity = new Intent(getApplicationContext(), UserHomeActivity.class);
-                        startActivity(UserHomeActivity);
-                        LoginActivity.this.finish();
-                    } else {
-                        Intent BusinessHomeActivity = new Intent(getApplicationContext(), BusinessHomeActivity.class);
-                        startActivity(BusinessHomeActivity);
-                        LoginActivity.this.finish();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+            checkUser();
         }
 
         etEmail = findViewById(R.id.email);
@@ -89,38 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            mDatabase = FirebaseDatabase.getInstance().getReference("/users/");
-                            String Uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-                            // for getting the current user id
-                            mDatabase.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()) {
-                                        boolean flag = false;
-                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                            System.out.println("Uid/; " + dataSnapshot.getKey());
-                                            System.out.println("Uid curr; " + Uid);
-                                            if(dataSnapshot.getKey().equals(Uid)){
-                                                flag = true;
-                                            }
-                                        }
-                                        if(flag){
-                                            Intent UserHomeActivity = new Intent(getApplicationContext(), UserHomeActivity.class);
-                                            startActivity(UserHomeActivity);
-                                            LoginActivity.this.finish();
-                                        } else {
-                                            Intent BusinessHomeActivity = new Intent(getApplicationContext(), BusinessHomeActivity.class);
-                                            startActivity(BusinessHomeActivity);
-                                            LoginActivity.this.finish();
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
+                            checkUser();
                         } else {
                             Toast.makeText(LoginActivity.this, "Incorrect credentials", Toast.LENGTH_LONG).show();
                         }
@@ -137,5 +77,39 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(registrationActivityIntent);
             }
         });
+    }
+
+    public void checkUser() {
+        String TAG = "Testing";
+        String Uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        boolean isUser = false;
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                if (document.getId().equals(Uid)) {
+                                    isUser = true;
+                                    break;
+                                }
+                                Log.d(TAG, document.getId());
+                            }
+
+                            if (isUser) {
+                                Intent UserHomeActivity = new Intent(getApplicationContext(), UserHomeActivity.class);
+                                startActivity(UserHomeActivity);
+                                LoginActivity.this.finish();
+                            } else {
+                                Intent BusinessHomeActivity = new Intent(getApplicationContext(), BusinessHomeActivity.class);
+                                startActivity(BusinessHomeActivity);
+                                LoginActivity.this.finish();
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 }
