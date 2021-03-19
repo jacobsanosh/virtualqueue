@@ -51,6 +51,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
     private DatabaseReference mDataBase;
     private StorageReference mStorageReference;
     private String imageUrl;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // for firestore
 
