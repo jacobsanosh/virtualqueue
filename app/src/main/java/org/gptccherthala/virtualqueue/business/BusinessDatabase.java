@@ -24,6 +24,11 @@ public class BusinessDatabase {
         this.type = type;
     }
 
+    public BusinessDatabase(String name, String imageUrl) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+    }
+
     public BusinessDatabase(String name, String address, long phone, int pincode, String description, String category, String imageUrl) {
         this.name = name;
         this.address = address;

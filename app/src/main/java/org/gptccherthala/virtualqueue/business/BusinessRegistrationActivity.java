@@ -194,8 +194,8 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
                             Business.put("ImageUrl", imageUrl);
 
                             // it this collection path Business will be the document name userId
-
-                            db.collection("Business").document(category).collection(type)
+                            db.collection("business").document(category)
+                                    .collection(type)
                                     .document(userId).set(Business).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

@@ -1,18 +1,19 @@
 package org.gptccherthala.virtualqueue.business;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.gptccherthala.virtualqueue.R;
 
@@ -20,8 +21,7 @@ import java.util.ArrayList;
 
 public class BusinessDataListActivity extends AppCompatActivity {
 
-    private RecyclerView mBusinessDataListRecView;
-    private DatabaseReference mDataBase;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,30 +33,28 @@ public class BusinessDataListActivity extends AppCompatActivity {
         String type = data.getString("type");
         String category = data.getString("category");
 
-        mBusinessDataListRecView = findViewById(R.id.businessDataListRecView);
-        mDataBase = FirebaseDatabase.getInstance().getReference("/business/" + category + "/" + type);
+        RecyclerView mBusinessDataListRecView = findViewById(R.id.businessDataListRecView);
 
         ArrayList<BusinessDatabase> businessDatabase = new ArrayList<>();
+        BusinessDataListRecViewAdapter adapter = new BusinessDataListRecViewAdapter(BusinessDataListActivity.this);
 
-        mDataBase.addValueEventListener(new ValueEventListener() {
+        db.collection("business").document(category).collection(type)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    BusinessDataListRecViewAdapter adapter = new BusinessDataListRecViewAdapter(BusinessDataListActivity.this);
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        businessDatabase.add(dataSnapshot.getValue(BusinessDatabase.class));
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        BusinessDatabase dd = new BusinessDatabase(document.get("Name").toString(), document.get("ImageUrl").toString());
+                        System.out.println(dd.name + "" + dd.imageUrl);
+                        businessDatabase.add(dd);
                         adapter.setBusinessDatabase(businessDatabase);
                     }
-                    mBusinessDataListRecView.setAdapter(adapter);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
         });
-
+        mBusinessDataListRecView.setAdapter(adapter);
         mBusinessDataListRecView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
