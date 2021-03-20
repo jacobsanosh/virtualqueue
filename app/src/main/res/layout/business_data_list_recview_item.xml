@@ -4,12 +4,12 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:padding="0dp"
     android:layout_margin="10dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -17,22 +17,49 @@
             android:id="@+id/image"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/hotel"/>
+            android:scaleType="fitXY"
+            android:src="@drawable/hotel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="10dp"/>
 
         <TextView
             android:id="@+id/text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/image"
-            android:layout_centerHorizontal="true"
-            android:text="Name" />
-
+            android:layout_marginTop="16dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintTop_toTopOf="parent" />
         <Button
+            android:id="@+id/seemore"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button_login"
-            android:layout_below="@+id/text_name"/>
-    </RelativeLayout>
+            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"
+            android:text="seemore"
+            app:layout_constraintTop_toBottomOf="@+id/text_name"
+
+            />
+
+          <Button
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/button_login"
+              app:layout_constraintStart_toEndOf="@+id/image"
+              app:layout_constraintTop_toBottomOf="@+id/seemore"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:text="join Q"
+              android:layout_marginTop="15dp"
+
+              />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
