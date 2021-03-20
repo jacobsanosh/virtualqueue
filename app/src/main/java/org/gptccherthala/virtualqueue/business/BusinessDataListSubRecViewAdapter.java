@@ -46,6 +46,8 @@ public class BusinessDataListSubRecViewAdapter extends RecyclerView.Adapter<Busi
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //call businessDataListActivity
+
                 Intent businessDataListActivity = new Intent(mContext, BusinessDataListActivity.class);
                 businessDataListActivity.putExtra("type", mDatabase.get(position).getType());
                 businessDataListActivity.putExtra("category", mDatabase.get(position).getCategory());

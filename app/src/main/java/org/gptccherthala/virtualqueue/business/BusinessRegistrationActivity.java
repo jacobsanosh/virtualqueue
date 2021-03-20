@@ -1,5 +1,6 @@
 package org.gptccherthala.virtualqueue.business;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -51,7 +53,10 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
     private DatabaseReference mDataBase;
     private StorageReference mStorageReference;
     private String imageUrl;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    // for progress bar
+    ProgressBar pbar;
+
 
     // for firestore
 
@@ -60,6 +65,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_business_registration);
 
         etCompanyName = findViewById(R.id.text_company_name);
@@ -74,6 +80,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
         mDataBase = FirebaseDatabase.getInstance().getReference();
         userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         mStorageReference = FirebaseStorage.getInstance().getReference();
+        pbar = findViewById(R.id.pbar);
 
         spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -166,7 +173,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
                     String category = spCategory.getSelectedItem().toString();
                     String type = spType.getSelectedItem().toString();
 
-                    uploadImage();
+
 
                     if (checkFieldData(name, address, pincode, phoneString, description, imageUrl)) {
                         try {
@@ -188,7 +195,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
 
                             // it this collection path Business will be the document name userId
 
-                            db.collection("Business")
+                            db.collection("Business").document(category).collection(type)
                                     .document(userId).set(Business).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -274,6 +281,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
     }
 
     @Override
@@ -282,11 +290,13 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             filePath = data.getData();
+        uploadImage();
         }
     }
 
     private void uploadImage() {
         if (filePath != null) {
+            pbar.setVisibility(View.VISIBLE);
             StorageReference ref = mStorageReference.child("images/" + userId);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -297,6 +307,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     imageUrl = task.getResult().toString();
+                                    pbar.setVisibility(View.GONE);
                                 }
                             });
                         }
@@ -305,6 +316,7 @@ public class BusinessRegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             btnChoose.setError("Image upload failed");
+                            pbar.setVisibility(View.GONE);
                             Toast.makeText(BusinessRegistrationActivity.this, "Failed ", Toast.LENGTH_SHORT).show();
                         }
                     });

@@ -81,7 +81,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void checkUser() {
         String TAG = "Testing";
+
+        // used dto get uid
         String Uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+        // to check the user from database
         db.collection("users")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -97,16 +101,20 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d(TAG, document.getId());
                             }
 
-                            if (isUser) {
+                            if (isUser)
+                            {
                                 Intent UserHomeActivity = new Intent(getApplicationContext(), UserHomeActivity.class);
                                 startActivity(UserHomeActivity);
                                 LoginActivity.this.finish();
-                            } else {
+                            } else
+                                {
                                 Intent BusinessHomeActivity = new Intent(getApplicationContext(), BusinessHomeActivity.class);
                                 startActivity(BusinessHomeActivity);
                                 LoginActivity.this.finish();
-                            }
-                        } else {
+                                }
+                        }
+                        else
+                            {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
