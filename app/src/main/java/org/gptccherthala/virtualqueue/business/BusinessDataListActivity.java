@@ -38,13 +38,13 @@ public class BusinessDataListActivity extends AppCompatActivity {
         ArrayList<BusinessDatabase> businessDatabase = new ArrayList<>();
         BusinessDataListRecViewAdapter adapter = new BusinessDataListRecViewAdapter(BusinessDataListActivity.this);
 
-        db.collection("business").document(category).collection(type)
+        db.collection("Business").document(category).collection(type)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        BusinessDatabase dd = new BusinessDatabase(document.get("Name").toString(), document.get("ImageUrl").toString());
+                        BusinessDatabase dd = new BusinessDatabase(document.get("Name").toString(), document.get("ImageUrl").toString(),document.getId());
                         System.out.println(dd.name + "" + dd.imageUrl);
                         businessDatabase.add(dd);
                         adapter.setBusinessDatabase(businessDatabase);

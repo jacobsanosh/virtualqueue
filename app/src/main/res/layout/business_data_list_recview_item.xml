@@ -22,7 +22,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="10dp"/>
+            android:layout_margin="10dp"
+
+            />
 
         <TextView
             android:id="@+id/text_name"
@@ -50,14 +52,16 @@
             />
 
           <Button
+              android:id="@+id/JButton"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:id="@+id/button_login"
               app:layout_constraintStart_toEndOf="@+id/image"
               app:layout_constraintTop_toBottomOf="@+id/seemore"
               app:layout_constraintEnd_toEndOf="parent"
               android:text="join Q"
               android:layout_marginTop="15dp"
+              app:layout_constraintBottom_toBottomOf="parent"
+              android:layout_margin="10dp"
 
               />
     </androidx.constraintlayout.widget.ConstraintLayout>

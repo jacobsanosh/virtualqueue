@@ -10,6 +10,7 @@ public class BusinessDatabase {
     public int imagePath;
     public String imageUrl;
     public String type;
+    public String  bid;
 
     public BusinessDatabase() {
     }
@@ -24,9 +25,18 @@ public class BusinessDatabase {
         this.type = type;
     }
 
-    public BusinessDatabase(String name, String imageUrl) {
+    public String getBid() {
+        return bid;
+    }
+
+    public void setBid(String bid) {
+        this.bid = bid;
+    }
+
+    public BusinessDatabase(String name, String imageUrl, String bid) {
         this.name = name;
         this.imageUrl = imageUrl;
+        this.bid = bid;
     }
 
     public BusinessDatabase(String name, String address, long phone, int pincode, String description, String category, String imageUrl) {
