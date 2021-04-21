@@ -3,14 +3,14 @@ package org.gptccherthala.virtualqueue;
 import java.sql.Time;
 
 public class QueueDetails {
-    private  String name;
+    private String name;
     private String businessName;
     private long position;
-    private String uid;
+    private String uId;
+    private Time time;
 
-
-    public QueueDetails(String name, Long position) {
-        this.name = name;
+    public QueueDetails(String businessName, long position) {
+        this.businessName = businessName;
         this.position = position;
     }
 
@@ -34,16 +34,12 @@ public class QueueDetails {
         return position;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public String getuId() {
+        return uId;
     }
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     public Time getTime() {
@@ -53,6 +49,4 @@ public class QueueDetails {
     public void setTime(Time time) {
         this.time = time;
     }
-
-    private Time time;
 }
