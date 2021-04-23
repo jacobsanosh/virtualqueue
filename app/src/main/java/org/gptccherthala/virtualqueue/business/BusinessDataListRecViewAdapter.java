@@ -2,10 +2,14 @@ package org.gptccherthala.virtualqueue.business;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,12 +27,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.zxing.WriterException;
 
 import org.gptccherthala.virtualqueue.QueueDetails;
 import org.gptccherthala.virtualqueue.R;
 import org.gptccherthala.virtualqueue.user.loadingqr;
 
 import java.util.ArrayList;
+
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
 
 public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<BusinessDataListRecViewAdapter.ViewHolder> {
 
@@ -124,8 +132,11 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
+
+                                                //calling qr code which will contain function for displaying qr
                                                 loadingqr qr =new loadingqr(mContext);
                                                 qr.displayingqr();
+
                                             }
 
                                             else
