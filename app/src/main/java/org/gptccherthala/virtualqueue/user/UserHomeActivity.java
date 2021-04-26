@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.gptccherthala.virtualqueue.R;
 
@@ -35,7 +36,9 @@ public class UserHomeActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
                         return true;
                     case R.id.Qr:
-                        Toast.makeText(UserHomeActivity.this, "qr is clicked.....", Toast.LENGTH_LONG).show();
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        loadingqr qr =new loadingqr(UserHomeActivity.this);
+                        qr.displayingqr(userId);
                         return true;
                 }
                 return false;

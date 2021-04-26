@@ -135,7 +135,7 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
 
                                                 //calling qr code which will contain function for displaying qr
                                                 loadingqr qr =new loadingqr(mContext);
-                                                qr.displayingqr();
+                                                qr.displayingqr(userId);
 
                                             }
 

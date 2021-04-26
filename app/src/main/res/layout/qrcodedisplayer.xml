@@ -8,7 +8,6 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,8 +18,8 @@
         >
         <ImageView
             android:id="@+id/qrcode"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.278"
@@ -29,8 +28,6 @@
             app:layout_constraintVertical_bias="0.472"
             android:scaleType="centerCrop"
             android:src="@drawable/bank"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            tools:srcCompat="@tools:sample/backgrounds/scenic"/>
     </com.google.android.material.card.MaterialCardView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
