@@ -7,30 +7,27 @@
     tools:context=".business.HomeFragment">
 
     <TextView
-        android:id="@+id/shopdetail"
+        android:id="@+id/shop_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:text="Opened or Closed"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/openOrClosed"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/openOrClosed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/openOrClosed" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/openOrClosed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:switchMinWidth="56dp"
-        android:textOff="OFF"
-        android:textOn="ON"
-        android:textSize="20sp"
+        android:layout_marginStart="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        app:layout_constraintStart_toStartOf="@+id/shop_detail"/>
 
     <TextView
         android:id="@+id/qLength"
@@ -44,6 +41,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shopdetail" />
+        app:layout_constraintTop_toBottomOf="@+id/shop_detail" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/joinedUsersRecView"
+        app:layout_constraintTop_toBottomOf="@+id/qLength"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
