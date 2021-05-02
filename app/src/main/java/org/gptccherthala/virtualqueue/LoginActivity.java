@@ -1,7 +1,9 @@
 package org.gptccherthala.virtualqueue;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -33,13 +37,16 @@ public class LoginActivity extends AppCompatActivity {
     Button loginBtn;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
+    SharedPreferences preferences;
+    SharedPreferences.Editor udata;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-
+        preferences= PreferenceManager.getDefaultSharedPreferences(this);
+        udata =preferences.edit();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
@@ -103,6 +110,27 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (isUser)
                             {
+                                DocumentReference documentReference=db.collection("users").document(Uid);
+                                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if(task.isSuccessful())
+                                        {
+                                            DocumentSnapshot data =task.getResult();
+                                            if(data.exists())
+                                            {
+                                                Integer picode = Integer.parseInt(data.get("PinCode").toString());
+                                                Long phone = Long.parseLong(data.get("Phone").toString());
+                                                String name = data.get("Name").toString();
+                                                udata.putString("Uname",name);
+                                                udata.putLong("Phone",phone);
+                                                udata.putInt("Pincode",picode);
+                                                udata.apply();
+                                                System.out.println(udata.toString());
+                                            }
+                                        }
+                                    }
+                                });
                                 Intent UserHomeActivity = new Intent(getApplicationContext(), UserHomeActivity.class);
                                 startActivity(UserHomeActivity);
                                 LoginActivity.this.finish();

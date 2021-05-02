@@ -33,10 +33,11 @@ public class BusinessDatabase {
         this.Bid = Bid;
     }
 
-    public BusinessDatabase(String name, String imageUrl, String bid) {
+    public BusinessDatabase(String name, String imageUrl, String bid,long Phone) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.Bid = bid;
+        this.phone =Phone;
     }
 
     public BusinessDatabase(String name, String address, long phone, int pincode, String description, String category, String imageUrl) {

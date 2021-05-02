@@ -4,14 +4,18 @@ import java.sql.Time;
 
 public class QueueDetails {
     private String name;
-    private String businessName;
+    private String uname;
     private long position;
     private String uId;
     private Time time;
+    private  long phone;
+    private int pincode;
 
-    public QueueDetails(String businessName, long position) {
-        this.businessName = businessName;
+    public QueueDetails(String uname,long phone,int pincode,long position) {
+        this.uname = uname;
         this.position = position;
+        this.phone = phone;
+        this.pincode=pincode;
     }
 
     public String getName() {
@@ -23,11 +27,11 @@ public class QueueDetails {
     }
 
     public String getBusinessName() {
-        return businessName;
+        return uname;
     }
 
     public void setBusinessName(String businessName) {
-        this.businessName = businessName;
+        this.uname = uname;
     }
 
     public long getPosition() {

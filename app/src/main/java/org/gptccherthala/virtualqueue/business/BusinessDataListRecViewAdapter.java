@@ -2,8 +2,10 @@ package org.gptccherthala.virtualqueue.business;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -27,10 +30,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.zxing.WriterException;
 
 import org.gptccherthala.virtualqueue.QueueDetails;
 import org.gptccherthala.virtualqueue.R;
+import org.gptccherthala.virtualqueue.user.BUSINESS_QUEUE;
+import org.gptccherthala.virtualqueue.user.USER_QUEUE;
+import org.gptccherthala.virtualqueue.user.UserDatabase;
 import org.gptccherthala.virtualqueue.user.loadingqr;
 
 import java.util.ArrayList;
@@ -48,7 +60,8 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
     private Activity activity;
     private DatabaseReference mDataBase;
     private long qLength;
-
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+    UserDatabase user = new UserDatabase();
     public BusinessDataListRecViewAdapter(Context mContext) {
         this.mContext = mContext;
         this.activity = (Activity) mContext;
@@ -67,6 +80,7 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mDataBase = FirebaseDatabase.getInstance().getReference();
         bData = businessDatabase.get(position);
@@ -89,6 +103,7 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
             public void onClick(View v) {
                 bData = businessDatabase.get(position);
                 businessId = bData.getbId();
+                userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 mDataBase.child("business").child(businessId).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                     @Override
@@ -119,15 +134,22 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
     }
 
     public void updateQueueDetails(ViewHolder holder) {
-        QueueDetails queueDetails = new QueueDetails(bData.getName(), qLength);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+       String name= preferences.getString("Uname","");
+       long phone =preferences.getLong("Phone",0);
+       int pincode = preferences.getInt("Pincode",0);
+        USER_QUEUE user_queue=new USER_QUEUE(name,phone,qLength,pincode);
 
-        mDataBase.child("business").child(businessId).child(userId).setValue(queueDetails)
+        QueueDetails queueDetails = new QueueDetails(name,phone,pincode,qLength);
+        BUSINESS_QUEUE business_queue =new BUSINESS_QUEUE(bData.getName(),qLength,bData.getPhone());
+        System.out.println(business_queue.getPhone());
+        mDataBase.child("business").child(businessId).child(userId).setValue(user_queue)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             holder.joinQueue.setEnabled(false);
-                            mDataBase.child("user").child(userId).child(businessId).setValue(queueDetails)
+                            mDataBase.child("user").child(userId).child(businessId).setValue(business_queue)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -147,6 +169,7 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
                             Toast.makeText(mContext, "Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -162,4 +185,6 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
             joinQueue = itemView.findViewById(R.id.button_join_queue);
         }
     }
+    //queue details into firebase
+
 }
