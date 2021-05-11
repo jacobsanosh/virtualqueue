@@ -12,6 +12,7 @@ public class BusinessDatabase {
     public String type;
     public String  Bid;
 
+
     public BusinessDatabase() {
     }
 
@@ -23,6 +24,7 @@ public class BusinessDatabase {
         this.category = category;
         this.imagePath = imagePath;
         this.type = type;
+
     }
 
     public String getbId() {

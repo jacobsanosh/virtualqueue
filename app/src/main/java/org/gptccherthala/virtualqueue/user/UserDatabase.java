@@ -38,4 +38,8 @@ public class UserDatabase {
         this.phoneNumber = phoneNumber;
         this.pinCode = pinCode;
     }
+    public UserDatabase(String name, long phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
 }
