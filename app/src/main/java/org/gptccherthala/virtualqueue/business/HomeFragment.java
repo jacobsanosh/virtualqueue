@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +38,10 @@ public class HomeFragment extends Fragment {
     int pincode;
     String bId;
     private FirebaseFirestore db;
+    boolean isOpen;
+    SwitchMaterial isOpenOrClosedSwitch;
+    TextView shop_details;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,43 +58,110 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home_business, container, false);
 
-        ArrayList<USER_QUEUE> userjoined=new ArrayList<>();
-        joinedUserRecview=view.findViewById(R.id.joinedUsersRecView);
-        JoinedUserQueuAdapter adapter=new JoinedUserQueuAdapter();
+
+        //initialization
+
         db = FirebaseFirestore.getInstance();
         bId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         businessRef = FirebaseDatabase.getInstance().getReference().child("business").child(bId);
+        isOpen = false;
+        isOpenOrClosedSwitch = view.findViewById(R.id.openOrClosed);
+        shop_details = view.findViewById(R.id.shop_detail);
+
+        //adding button click listener for switch
+
+        isOpenOrClosedSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isOpenOrClosedSwitch.isChecked()) {
+                    businessRef.child("isopen").setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            shop_details.setText("Shop Open");
+                            isOpenOrClosedSwitch.setChecked(true);
+                        }
+                    });
+                } else {
+                    businessRef.child("isopen").setValue(false).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            shop_details.setText("Shop close");
+                            isOpenOrClosedSwitch.setChecked(false);
+                        }
+                    });
+                }
+            }
+        });
 
 
+        //checking whether is open or closed from db
+
+        businessRef.child("isopen").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    if (dataSnapshot.getValue().toString() == "true") {
+                        shop_details.setText("Shop Open");
+                        isOpenOrClosedSwitch.setChecked(true);
+                        RecyclerViewOfUser();
+                    } else {
+
+                        shop_details.setText("Shop closed");
+                        isOpenOrClosedSwitch.setChecked(false);
+                    }
+                }
+                //setting an default value for isopen in db
+                else {
+                    businessRef.child("isopen").setValue(false).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            System.out.println("added into the db");
+                        }
+                    });
+                }
+            }
+        });
+
+
+        return view;
+    }
+
+
+    public void RecyclerViewOfUser()
+    {
+        ArrayList<USER_QUEUE> userjoined = new ArrayList<>();
+        joinedUserRecview = view.findViewById(R.id.joinedUsersRecView);
+        JoinedUserQueuAdapter adapter = new JoinedUserQueuAdapter();
         businessRef.get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Log.d("Home", "1");
-
-                   businessRef.child(ds.getKey()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-                       @Override
-                       public void onSuccess(DataSnapshot dataSnapshot) {
-                           if (dataSnapshot.exists()) {
-
-
-                               USER_QUEUE data =dataSnapshot.getValue(USER_QUEUE.class);
-                               userjoined.add(data);
-                               adapter.setUser_queues(userjoined);
-                               Log.d("Home", "2");
-                           }
-                       }
-                   });
-
-
-                Log.d("Home", "3");
-            }
+                    if(ds.getKey().equals("isopen"))
+                    {
+                        System.out.println(ds.getKey()+"isopenfields is open");
+                    }
+                    else{
+                        System.out.println(ds.getKey()+"hahahah");
+                        businessRef.child(ds.getKey()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                            @Override
+                            public void onSuccess(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    USER_QUEUE data = dataSnapshot.getValue(USER_QUEUE.class);
+                                    userjoined.add(data);
+                                    adapter.setUser_queues(userjoined);
+                                    Log.d("Home", "2");
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
 
-        Log.d("Home", "4");
+
         joinedUserRecview.setAdapter(adapter);
         joinedUserRecview.setLayoutManager(new LinearLayoutManager(getContext()));
-        return view;
+
     }
 }
