@@ -1,3 +1,4 @@
+
 package org.gptccherthala.virtualqueue.business;
 
 import android.app.Activity;
@@ -6,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.preference.PreferenceManager;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -60,7 +62,7 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
     private Activity activity;
     private DatabaseReference mDataBase;
     private long qLength;
-    FirebaseFirestore database = FirebaseFirestore.getInstance();
+
     UserDatabase user = new UserDatabase();
     public BusinessDataListRecViewAdapter(Context mContext) {
         this.mContext = mContext;
@@ -89,14 +91,47 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
                 .asBitmap()
                 .load(bData.getImageUrl()).into(holder.image);
 
-        mDataBase.child("user").child(userId).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+
+//checking da for joining
+        mDataBase.child("business").child(businessDatabase.get(position).getbId()).child("isopen").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(businessDatabase.get(position).getbId())) {
-                    holder.joinQueue.setEnabled(false);
+                if (dataSnapshot.exists()) {
+                    if (dataSnapshot.getValue().toString() == "true")
+                    {
+                        //saying whether shop is open or not
+                        holder.Details.setText("shop open");
+
+                        //if db shop is open then checking whether the customer is joined or not
+                        mDataBase.child("user").child(userId).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                            @Override
+                            public void onSuccess(DataSnapshot dataSnapshot)
+                            {
+                                if (dataSnapshot.hasChild(businessDatabase.get(position).getbId()))
+                                {
+                                    //aleady joined user
+                                    holder.joinQueue.setText("Alredy joined");
+                                    holder.joinQueue.setEnabled(false);
+                                }
+                                else{
+                                    holder.joinQueue.setEnabled(true);
+                                    }
+                            }
+                        });
+                    }
+                    else
+                        {
+                        holder.Details.setText("shop closed");
+
+                        holder.joinQueue.setEnabled(false);
+                        }
                 }
+
             }
         });
+
+
+
 
         holder.joinQueue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,12 +209,13 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView txtName;
+        private final TextView txtName,Details;
         private final ImageView image;
         private final Button joinQueue;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            Details = itemView.findViewById(R.id.Details);
             txtName = itemView.findViewById(R.id.text_name);
             image = itemView.findViewById(R.id.image);
             joinQueue = itemView.findViewById(R.id.button_join_queue);

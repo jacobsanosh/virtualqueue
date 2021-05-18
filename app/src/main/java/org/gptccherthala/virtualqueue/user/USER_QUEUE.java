@@ -1,10 +1,19 @@
 package org.gptccherthala.virtualqueue.user;
 
 public class USER_QUEUE {
+    String Uid;
     String name;
     long phone;
     long qlength;
     int pincode;
+
+    public String getUid() {
+        return Uid;
+    }
+
+    public void setUid(String uid) {
+        Uid = uid;
+    }
 
     public USER_QUEUE() {
     }

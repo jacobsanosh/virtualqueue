@@ -32,10 +32,6 @@ public class HomeFragment extends Fragment {
     View view;
     RecyclerView joinedUserRecview;
     private DatabaseReference businessRef;
-    String name;
-    Long phone;
-    Long qlength;
-    int pincode;
     String bId;
     private FirebaseFirestore db;
     boolean isOpen;
@@ -79,6 +75,7 @@ public class HomeFragment extends Fragment {
                         public void onSuccess(Void aVoid) {
                             shop_details.setText("Shop Open");
                             isOpenOrClosedSwitch.setChecked(true);
+                            RecyclerViewOfUser();
                         }
                     });
                 } else {
@@ -139,7 +136,7 @@ public class HomeFragment extends Fragment {
                     Log.d("Home", "1");
                     if(ds.getKey().equals("isopen"))
                     {
-                        System.out.println(ds.getKey()+"isopenfields is open");
+                        System.out.println(ds.getKey()+"is openfields is open");
                     }
                     else{
                         System.out.println(ds.getKey()+"hahahah");
@@ -148,8 +145,9 @@ public class HomeFragment extends Fragment {
                             public void onSuccess(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
                                     USER_QUEUE data = dataSnapshot.getValue(USER_QUEUE.class);
+                                    data.setUid(ds.getKey());
                                     userjoined.add(data);
-                                    adapter.setUser_queues(userjoined);
+                                    adapter.setUser_queues(userjoined,getActivity(),bId);
                                     Log.d("Home", "2");
                                 }
                             }
