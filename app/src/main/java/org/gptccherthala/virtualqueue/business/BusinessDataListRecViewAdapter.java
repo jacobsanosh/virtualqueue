@@ -143,13 +143,7 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
                 mDataBase.child("business").child(businessId).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                     @Override
                     public void onSuccess(DataSnapshot dataSnapshot) {
-                        qLength = dataSnapshot.getChildrenCount() + 1;
-                        updateQueueDetails(holder);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        qLength = 1;
+                        qLength = dataSnapshot.getChildrenCount();
                         updateQueueDetails(holder);
                     }
                 });

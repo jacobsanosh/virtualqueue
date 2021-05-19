@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -85,17 +86,17 @@ public class JoinedUserQueuAdapter extends RecyclerView.Adapter<JoinedUserQueuAd
                         userRef.updateChildren(childUpdates);
                     }
                 });
-                //for resetting
-
-
-
-
 
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userRef =  FirebaseDatabase.getInstance().getReference().child("user").child(user_queues.get(position).getUid()).child(bid);
+                userRef.removeValue();
+                userRef = FirebaseDatabase.getInstance().getReference().child("business").child(bid).child(user_queues.get(position).getUid());
+                userRef.removeValue();
+
 
             }
         });

@@ -2,6 +2,8 @@ package org.gptccherthala.virtualqueue.business;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +19,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -126,17 +130,23 @@ public class HomeFragment extends Fragment {
 
     public void RecyclerViewOfUser()
     {
-        ArrayList<USER_QUEUE> userjoined = new ArrayList<>();
+
         joinedUserRecview = view.findViewById(R.id.joinedUsersRecView);
         JoinedUserQueuAdapter adapter = new JoinedUserQueuAdapter();
-        businessRef.get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+
+        ValueEventListener postListener = new ValueEventListener() {
             @Override
-            public void onSuccess(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println("yes on datachange");
+
+                ArrayList<USER_QUEUE> userjoined = new ArrayList<>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Log.d("Home", "1");
                     if(ds.getKey().equals("isopen"))
                     {
                         System.out.println(ds.getKey()+"is openfields is open");
+                        //resetting the adapter after delete
+                        adapter.setUser_queues(userjoined,getActivity(),bId);
                     }
                     else{
                         System.out.println(ds.getKey()+"hahahah");
@@ -155,8 +165,13 @@ public class HomeFragment extends Fragment {
                     }
                 }
             }
-        });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("on cancelling");
 
+            }
+
+        };businessRef.addValueEventListener(postListener);
 
         joinedUserRecview.setAdapter(adapter);
         joinedUserRecview.setLayoutManager(new LinearLayoutManager(getContext()));

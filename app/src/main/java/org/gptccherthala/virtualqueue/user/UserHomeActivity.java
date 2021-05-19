@@ -49,16 +49,18 @@ public class UserHomeActivity extends AppCompatActivity {
             public void onSuccess(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     newuserRef=userRef.child(ds.getKey());
-                    System.out.print(newuserRef+" ");
                     ValueEventListener postListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                           if(dataSnapshot.child("alert").getValue().toString().equals("true")){
-                                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-                                notificationManager.notify(000, builder.build());
-
-                                //for resetting
-
+                            try{
+                                if(dataSnapshot.child("alert").getValue().toString().equals("true")) {
+                                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+                                    notificationManager.notify(000, builder.build());
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
                             }
                         }
 
