@@ -49,4 +49,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation ('eu.livotov.labs.android:CAMView:2.0.1@aar') {transitive=true}
 }

@@ -1,5 +1,6 @@
 package org.gptccherthala.virtualqueue.business;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -37,7 +38,8 @@ public class BusinessHomeActivity extends AppCompatActivity {
                         Toast.makeText(BusinessHomeActivity.this, "Details.", Toast.LENGTH_LONG).show();
                         return true;
                     case R.id.QrReader:
-                        Toast.makeText(BusinessHomeActivity.this, "Scanner", Toast.LENGTH_LONG).show();
+                        Intent qrreader=new Intent(getApplicationContext(),QRCode_Reader_of_Users.class);
+                        startActivity(qrreader);
                         return true;
                 }
                 return false;
