@@ -45,7 +45,6 @@ public class BusinessDataListActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         BusinessDatabase dd = new BusinessDatabase(document.get("Name").toString(), document.get("ImageUrl").toString(),document.getId(),Long.parseLong(document.get("Phone").toString()));
-                        System.out.println(dd.name + "" + dd.imageUrl);
                         businessDatabase.add(dd);
                         adapter.setBusinessDatabase(businessDatabase);
                     }

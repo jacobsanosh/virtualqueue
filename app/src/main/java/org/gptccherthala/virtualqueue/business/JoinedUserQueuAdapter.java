@@ -4,8 +4,11 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +24,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.gptccherthala.virtualqueue.R;
 import org.gptccherthala.virtualqueue.user.USER_QUEUE;
@@ -37,6 +43,8 @@ public class JoinedUserQueuAdapter extends RecyclerView.Adapter<JoinedUserQueuAd
     Context context;
     DatabaseReference userRef;
     String bid;
+    SharedPreferences preferences;
+    SharedPreferences.Editor userAtTop;
 
     public void setUser_queues(ArrayList<USER_QUEUE> user_queues,Context context,String bid) {
         this.bid=bid;
@@ -55,6 +63,12 @@ public class JoinedUserQueuAdapter extends RecyclerView.Adapter<JoinedUserQueuAd
 
     @Override
     public void onBindViewHolder(@NonNull Userjoined holder, int position) {
+        //creating an shared preferences
+        preferences= PreferenceManager.getDefaultSharedPreferences(context);
+        userAtTop=preferences.edit();
+        userAtTop.putString("Uid",user_queues.get(0).getUid());
+        userAtTop.putString("Bid",bid);
+        userAtTop.apply();
 
         holder.call.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +108,10 @@ public class JoinedUserQueuAdapter extends RecyclerView.Adapter<JoinedUserQueuAd
             public void onClick(View v) {
                 userRef =  FirebaseDatabase.getInstance().getReference().child("user").child(user_queues.get(position).getUid()).child(bid);
                 userRef.removeValue();
+
                 userRef = FirebaseDatabase.getInstance().getReference().child("business").child(bid).child(user_queues.get(position).getUid());
                 userRef.removeValue();
+
 
 
             }

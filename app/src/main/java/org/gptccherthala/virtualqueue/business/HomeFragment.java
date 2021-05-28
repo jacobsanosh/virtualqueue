@@ -3,6 +3,7 @@ package org.gptccherthala.virtualqueue.business;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,16 +19,19 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.gptccherthala.virtualqueue.R;
 import org.gptccherthala.virtualqueue.user.USER_QUEUE;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -119,6 +123,22 @@ public class HomeFragment extends Fragment {
                             System.out.println("added into the db");
                         }
                     });
+
+                }
+            }
+        });
+        //checking whether nood is exists
+        businessRef.child("qlength").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    //adding an default qlength
+                    businessRef.child("qlength").setValue(0).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            System.out.println("adding an default q length");
+                        }
+                    });
                 }
             }
         });
@@ -128,11 +148,10 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void RecyclerViewOfUser()
-    {
-
+    public void RecyclerViewOfUser() {
         joinedUserRecview = view.findViewById(R.id.joinedUsersRecView);
         JoinedUserQueuAdapter adapter = new JoinedUserQueuAdapter();
+        Query busineessRefQuery = businessRef.orderByChild("qlength");
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -142,7 +161,7 @@ public class HomeFragment extends Fragment {
                 ArrayList<USER_QUEUE> userjoined = new ArrayList<>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Log.d("Home", "1");
-                    if(ds.getKey().equals("isopen"))
+                    if(ds.getKey().equals("isopen") || ds.getKey().equals("qlength"))
                     {
                         System.out.println(ds.getKey()+"is openfields is open");
                         //resetting the adapter after delete
@@ -150,18 +169,11 @@ public class HomeFragment extends Fragment {
                     }
                     else{
                         System.out.println(ds.getKey()+"hahahah");
-                        businessRef.child(ds.getKey()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-                            @Override
-                            public void onSuccess(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    USER_QUEUE data = dataSnapshot.getValue(USER_QUEUE.class);
-                                    data.setUid(ds.getKey());
-                                    userjoined.add(data);
-                                    adapter.setUser_queues(userjoined,getActivity(),bId);
-                                    Log.d("Home", "2");
-                                }
-                            }
-                        });
+                        USER_QUEUE data = dataSnapshot.getValue(USER_QUEUE.class);
+                        data.setUid(ds.getKey());
+                        userjoined.add(data);
+                        adapter.setUser_queues(userjoined,getActivity(),bId);
+                        Log.d("Home", "2");
                     }
                 }
             }
@@ -171,10 +183,11 @@ public class HomeFragment extends Fragment {
 
             }
 
-        };businessRef.addValueEventListener(postListener);
+        };busineessRefQuery.addValueEventListener(postListener);
 
         joinedUserRecview.setAdapter(adapter);
         joinedUserRecview.setLayoutManager(new LinearLayoutManager(getContext()));
-
     }
+
+
 }

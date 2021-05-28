@@ -48,6 +48,8 @@ import org.gptccherthala.virtualqueue.user.UserDatabase;
 import org.gptccherthala.virtualqueue.user.loadingqr;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -131,8 +133,6 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
         });
 
 
-
-
         holder.joinQueue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +143,11 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
                 mDataBase.child("business").child(businessId).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                     @Override
                     public void onSuccess(DataSnapshot dataSnapshot) {
-                        qLength = dataSnapshot.getChildrenCount();
+                        qLength =Long.parseLong(dataSnapshot.child("qlength").getValue().toString())+1;
+                        System.out.print("qlength is"+qLength);
+                        Map<String, Object> childUpdates = new HashMap<>();
+                        childUpdates.put("qlength",qLength);
+                        mDataBase.child("business").child(businessId).updateChildren(childUpdates);
                         updateQueueDetails(holder);
                     }
                 });
@@ -169,9 +173,7 @@ public class BusinessDataListRecViewAdapter extends RecyclerView.Adapter<Busines
        int pincode = preferences.getInt("Pincode",0);
         USER_QUEUE user_queue=new USER_QUEUE(name,phone,qLength,pincode);
 
-        QueueDetails queueDetails = new QueueDetails(name,phone,pincode,qLength);
         BUSINESS_QUEUE business_queue =new BUSINESS_QUEUE(bData.getName(),qLength,bData.getPhone());
-        System.out.println(business_queue.getPhone());
         mDataBase.child("business").child(businessId).child(userId).setValue(user_queue)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
